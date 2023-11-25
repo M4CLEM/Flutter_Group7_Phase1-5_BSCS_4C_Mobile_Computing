@@ -1,8 +1,10 @@
-import 'package:bluemart/models/cart.dart';
-import 'package:bluemart/models/game.dart';
+import 'package:bluemart/components/shoe_tile.dart';
+import 'package:bluemart/models/carts.dart';
+//import 'package:bluemart/models/game.dart';
+import 'package:bluemart/models/shoe.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../components/game_tile.dart';
+//import '../components/game_tile.dart';
 
 class ShopPage extends StatefulWidget {
   const ShopPage({super.key});
@@ -38,7 +40,7 @@ class _ShopPageState extends State<ShopPage> {
                 ),
               ),
               const Text(
-                'Popular Games',
+                'Hot Picks🔥',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -62,17 +64,28 @@ class _ShopPageState extends State<ShopPage> {
           Expanded(
             child: ListView.builder(
               itemCount: 4,
+              scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
+                Shoe shoe = value.getShoeList()[index];
+                return ShoeTile(
+                  shoe: shoe,
+                );
                 // create a game
-                Games game = value.getGameList()[index];
+                //Games game = value.getGameList()[index];
                 
                 // return game
-                return GameTile(
-                  games: game,
-                );
+                //return GameTile(
+                //  games: game,
+                //);
               }
             ),
           ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 25),
+            child: Divider(
+              color: Colors.white,
+            ),
+          )
         ],
       ),
     ),

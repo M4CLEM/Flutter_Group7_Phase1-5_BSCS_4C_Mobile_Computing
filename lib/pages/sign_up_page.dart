@@ -35,7 +35,10 @@ class _SignupPageState extends State<SignupPage> {
               ),
             );
           },
-          child: Icon(Icons.arrow_back),
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
         ),
         backgroundColor: Colors.black,
       ),

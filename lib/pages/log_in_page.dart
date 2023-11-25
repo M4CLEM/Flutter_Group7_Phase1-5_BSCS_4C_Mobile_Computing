@@ -38,7 +38,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
             );
           },
-          child: Icon(Icons.arrow_back),
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
         ),
         backgroundColor: Colors.black,
       ),
