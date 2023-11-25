@@ -27,8 +27,8 @@ class ShoeTile extends StatelessWidget {
           //desciption
           Text(
             shoe.description,
-            style: TextStyle(
-              color: Colors.grey.shade600,
+            style: const TextStyle(
+              color: Colors.black,
             ),
           ),
           //price and details
@@ -47,6 +47,7 @@ class ShoeTile extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
             
@@ -56,7 +57,7 @@ class ShoeTile extends StatelessWidget {
                     Text(
                       '\₱' + shoe.price,
                       style: const TextStyle(
-                        color: Colors.grey,
+                        color: Colors.black,
                       ),
                     ),
                   ],
