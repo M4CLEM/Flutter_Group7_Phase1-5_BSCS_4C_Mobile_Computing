@@ -66,26 +66,16 @@ class _ShopPageState extends State<ShopPage> {
               itemCount: 4,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
+                //Creates a shoe
                 Shoe shoe = value.getShoeList()[index];
+                //return shoe
                 return ShoeTile(
                   shoe: shoe,
                 );
-                // create a game
-                //Games game = value.getGameList()[index];
-                
-                // return game
-                //return GameTile(
-                //  games: game,
-                //);
               }
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 25),
-            child: Divider(
-              color: Colors.white,
-            ),
-          )
+          
         ],
       ),
     ),
