@@ -21,12 +21,29 @@ class _CartPageState extends State<CartPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //Header Text
-          const Text('My Cart',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('My Cart',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () {
+
+                },
+                label: const Text('Checkout'),
+                icon: const Icon(Icons.shopping_cart_checkout),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                  Colors.blue.shade400
+                  )
+                ),
+              ),
+            ],
           ),
 
           const SizedBox(height: 10,),
@@ -42,7 +59,7 @@ class _CartPageState extends State<CartPage> {
                 return CartItem(shoe: individualShoe,);
               }
             )
-          )
+          ),
         ],
       ),
     ),);
