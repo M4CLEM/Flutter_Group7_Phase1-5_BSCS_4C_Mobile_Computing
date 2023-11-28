@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 class ShoeTile extends StatelessWidget {
   Shoe shoe;
-  ShoeTile({super.key, required this.shoe});
+  void Function()? onTap;
+  ShoeTile({super.key, required this.shoe, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -68,19 +69,22 @@ class ShoeTile extends StatelessWidget {
                     ],
                   ),
                   //Add to cart button
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade800,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(12), 
-                        bottomRight: Radius.circular(12),
-                        
+                  GestureDetector(
+                    onTap: onTap,
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade800,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(12), 
+                          bottomRight: Radius.circular(12),
+                          
+                        ),
                       ),
-                    ),
-                    child: const Icon(
-                      Icons.shopping_cart,
-                      color: Colors.white,
+                      child: const Icon(
+                        Icons.shopping_cart,
+                        color: Colors.white,
+                      ),
                     ),
                   )
                 ],
