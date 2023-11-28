@@ -23,7 +23,7 @@ class LogSignPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Image.asset(
-                    'lib/images/Logo.png', 
+                    'lib/images/KICK IT LOGO.png', 
                     height: 350,
                   ),
                 ),

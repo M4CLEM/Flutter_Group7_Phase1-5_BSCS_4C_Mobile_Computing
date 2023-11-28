@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        actions: [Image.asset('lib/images/Logo.png')],
+        actions: [Image.asset('lib/images/KICK IT LOGO.png')],
       ),
       drawer: Drawer(
         backgroundColor: Colors.grey.shade900,
@@ -92,49 +92,70 @@ class _HomePageState extends State<HomePage> {
                 //Logo
                 DrawerHeader(
                   child: Image.asset(
-                  'lib/images/Logo.png'
+                  'lib/images/KICK IT LOGO.png'
                   ),
                 ),
                 Divider(
                   color: Colors.black,
                 ),
                 //Pages
-                const Padding(
-                  padding: EdgeInsets.only(left: 25.0),
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.home,
-                      color: Colors.white,
-                    ),
-                    title: Text(
-                      'Home',
-                      style: TextStyle(color: Colors.white),       
-                    ),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 25.0),
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.shopping_cart,
-                      color: Colors.white,
-                    ),
-                    title: Text(
-                      'Cart',
-                      style: TextStyle(color: Colors.white),       
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedIndex = 0;
+                    });
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.home,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'Home',
+                        style: TextStyle(color: Colors.white),       
+                      ),
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 25.0),
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.list_sharp,
-                      color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedIndex = 1;
+                    });
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'Cart',
+                        style: TextStyle(color: Colors.white),       
+                      ),
                     ),
-                    title: Text(
-                      'Transactions',
-                      style: TextStyle(color: Colors.white),       
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedIndex = 2;
+                    });
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.list_sharp,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'Transactions',
+                        style: TextStyle(color: Colors.white),       
+                      ),
                     ),
                   ),
                 ),

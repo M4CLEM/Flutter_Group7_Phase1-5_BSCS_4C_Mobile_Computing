@@ -61,7 +61,7 @@ class _SignupPageState extends State<SignupPage> {
                       Padding(
                         padding: EdgeInsets.all(1),
                         child: Image.asset(
-                          'lib/images/Logo.png', 
+                          'lib/images/KICK IT LOGO.png', 
                           height: 200,
                         ),
                       ),
