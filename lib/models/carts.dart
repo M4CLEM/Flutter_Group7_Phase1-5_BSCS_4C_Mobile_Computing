@@ -50,4 +50,16 @@ class Cart extends ChangeNotifier{
     userCart.remove(shoe);
     notifyListeners();
   }
+  //Transactions...
+  List<Shoe> userTransactions = [];
+
+  List<Shoe> getUserTransaction() {
+    return userTransactions;
+  }
+
+  void itemCheckOut(Shoe shoe) {
+    userTransactions.add(shoe);
+    userCart.remove(shoe);
+    notifyListeners();
+  }
 }

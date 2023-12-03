@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+
+
 import 'package:bluemart/models/carts.dart';
 import 'package:bluemart/models/shoe.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +38,10 @@ class _CartItemState extends State<CartItem> {
     );
   }
 
+  void itemCheckOutCart() {
+    Provider.of<Cart>(context, listen: false).itemCheckOut(widget.shoe);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,10 +54,19 @@ class _CartItemState extends State<CartItem> {
         leading: Image.asset(widget.shoe.imagePath),
         title: Text(widget.shoe.name),
         subtitle: Text('\₱' + widget.shoe.price),
-        trailing: IconButton(
-              icon: const Icon(Icons.delete),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
               onPressed: removeItemFromCart,
+              icon: const Icon(Icons.delete)
             ),
+            IconButton(
+              onPressed: itemCheckOutCart,
+              icon: const Icon(Icons.shopping_cart_checkout)
+            )
+          ],
+        )
       ),
     );
   }

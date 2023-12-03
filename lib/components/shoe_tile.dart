@@ -82,7 +82,7 @@ class ShoeTile extends StatelessWidget {
                         ),
                       ),
                       child: const Icon(
-                        Icons.shopping_cart,
+                        Icons.add_shopping_cart,
                         color: Colors.white,
                       ),
                     ),

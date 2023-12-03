@@ -33,10 +33,18 @@ class _CartPageState extends State<CartPage> {
               ),
               TextButton.icon(
                 onPressed: () {
-
+                  //Check-out button logic
                 },
-                label: const Text('Checkout'),
-                icon: const Icon(Icons.shopping_cart_checkout),
+                label: const Text(
+                  'Checkout',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                icon: const Icon(
+                  Icons.shopping_cart_checkout,
+                  color: Colors.white,
+                ),
                 style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(
                   Colors.blue.shade400
