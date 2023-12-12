@@ -1,7 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
+
+import 'package:bluemart/api_connection/apiconnection.dart';
 import 'package:bluemart/pages/log_sign_page.dart';
+import 'package:bluemart/users/model/users.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -13,12 +19,87 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
 
   final _formfield = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final userController = TextEditingController();
-  final passController = TextEditingController();
-  final conpassController = TextEditingController();
+  var emailController = TextEditingController();
+  var userController = TextEditingController();
+  var passController = TextEditingController();
+  var conpassController = TextEditingController();
   bool passToggle = true;
   bool conpassToggle = true;
+
+  Future validateUserEmail() async
+  {
+    try
+    {
+      var res = await http.post(
+        Uri.parse(API.validateEmail),
+        body: {
+          'user_email': emailController.text.trim(),
+        },
+      );
+
+      if(res.statusCode == 200)
+      {
+        var resBodyOfValidateEmail = jsonDecode(res.body);
+
+        if(resBodyOfValidateEmail['emailFound'] == true)
+        {
+          Fluttertoast.showToast(msg: "Email already in use");
+        }
+        else
+        {
+          saveUserRecord();
+        }
+      }
+    }
+    catch(e)
+    {
+      print(e.toString());
+      Fluttertoast.showToast(msg: e.toString());
+    }
+  }
+
+  Future saveUserRecord() async 
+  {
+    User userModel = User(
+      //1,
+      emailController.text.trim(),
+      userController.text.trim(),
+      passController.text.trim(),
+    );
+
+    try
+    {
+      var res = await http.post(
+        Uri.parse(API.signUp),
+        body: userModel.toJson(),
+      );
+
+      if(res.statusCode == 200)
+      {
+        var resBodyOfSignup = jsonDecode(res.body);
+        if(resBodyOfSignup['success'] == true) 
+        {
+          Fluttertoast.showToast(msg: "Signed-up Successfully");
+
+          setState(() {
+            emailController.clear();
+            userController.clear();
+            passController.clear();
+            conpassController.clear();
+          });
+        }
+        else
+        {
+          Fluttertoast.showToast(msg: "Error Occured");
+        }
+      }
+    }
+    catch(e)
+    {
+      print(e.toString());
+      Fluttertoast.showToast(msg: e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +202,7 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           // V A L I D A T O R
                           validator: (value) {
-                            bool userValid = RegExp(r'^[\w-.]{8,25}').hasMatch(value!);
+                            bool userValid = RegExp(r'^[\w\s-.]{8,25}').hasMatch(value!);
                             if(value.isEmpty){
                               return "Enter Username";
                             }
@@ -232,11 +313,12 @@ class _SignupPageState extends State<SignupPage> {
                             //Sign up logic
                             if(_formfield.currentState!.validate()){
                               // Temporary logic
-                              print("Data added succ");
-                              emailController.clear();
-                              userController.clear();
-                              passController.clear();
-                              conpassController.clear();
+                              print("Data added successfully");
+                              validateUserEmail();
+                              // emailController.clear();
+                              // userController.clear();
+                              // passController.clear();
+                              // conpassController.clear();
                             }
                           },
                         child: Container(

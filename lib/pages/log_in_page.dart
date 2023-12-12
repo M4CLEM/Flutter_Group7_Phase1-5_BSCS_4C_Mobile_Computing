@@ -1,8 +1,16 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
+
+import 'package:bluemart/api_connection/apiconnection.dart';
 import 'package:bluemart/pages/home_page.dart';
 import 'package:bluemart/pages/log_sign_page.dart';
+// import 'package:bluemart/users/model/users.dart';
+// import 'package:bluemart/users/userpreference/user_preference.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,14 +23,43 @@ class _LoginPageState extends State<LoginPage> {
 
   bool passToggle = true;
   final _formfield = GlobalKey<FormState>();
-  final userController = TextEditingController();
-  final passController = TextEditingController();
+  var emailController = TextEditingController();
+  var passController = TextEditingController();
 
   //Text editing controller to get access to what the user typed(A bug will occur if you use the same controller on the different fields)
   //TextEditingController myController = TextEditingController();
   //controller: myController,
 
   //SingleChildScrollView fixes the bottom overflow issue when the keyboard shows up.
+
+  Future loginUser() async {
+  try {
+    var res = await http.post(
+      Uri.parse(API.logIn),
+      body: {
+        "user_email": emailController.text.trim(),
+        "user_pass": passController.text.trim(),
+      },
+    );
+
+    print(res.body); 
+
+    if (res.statusCode == 200) {
+      var resBodyOfLogin = jsonDecode(res.body);
+      if (resBodyOfLogin['success'] == true) {
+        Fluttertoast.showToast(msg: "Login Successful");
+
+        Future.delayed(Duration(microseconds: 2000), () {
+          Get.to(HomePage());
+        });
+      } else {
+        Fluttertoast.showToast(msg: "Incorrect Credentials");
+      }
+    }
+  } catch (e) {
+    print("Error :: " + e.toString());
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -73,25 +110,25 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white,
                         ),
                         child: TextFormField(
-                          controller: userController,
+                          controller: emailController,
                           style: TextStyle(
                             color: Colors.black,
                           ),
                           decoration: InputDecoration(
-                            hintText: "Username",
-                            prefixIcon: Icon(Icons.person),
+                            hintText: "Email",
+                            prefixIcon: Icon(Icons.email_outlined),
                             hintStyle: TextStyle(
                               color: Colors.black,
                             ),
                           ),
                           // V A L I D A T O R
                           validator: (value){
-                            bool userValid = RegExp(r'^[\w-.]{8,25}').hasMatch(value!);
+                            bool userValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value!);
                             if(value.isEmpty){
-                              return "Enter Username";
+                              return "Enter Email";
                             }
                             else if(!userValid){
-                              return "Invalid Username";
+                              return "Invalid Email";
                             }
                             else{
                               return null;
@@ -154,14 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                             //Login logic here
                             if(_formfield.currentState!.validate()){
                               print("Login Successful");
-                              userController.clear();
-                              passController.clear();
-
-                              Navigator.push(context,
-                                MaterialPageRoute(
-                                builder: (context) => HomePage(),
-                                )
-                              );
+                              loginUser();
                             }
                             
                           },
