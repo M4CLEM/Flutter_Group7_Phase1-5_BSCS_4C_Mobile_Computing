@@ -32,34 +32,34 @@ class _LoginPageState extends State<LoginPage> {
 
   //SingleChildScrollView fixes the bottom overflow issue when the keyboard shows up.
 
-  Future loginUser() async {
-  try {
-    var res = await http.post(
-      Uri.parse(API.logIn),
-      body: {
-        "user_email": emailController.text.trim(),
-        "user_pass": passController.text.trim(),
-      },
-    );
+//   Future loginUser() async {
+//   try {
+//     var res = await http.post(
+//       Uri.parse(API.logIn),
+//       body: {
+//         "user_email": emailController.text.trim(),
+//         "user_pass": passController.text.trim(),
+//       },
+//     );
 
-    print(res.body); 
+//     print(res.body); 
 
-    if (res.statusCode == 200) {
-      var resBodyOfLogin = jsonDecode(res.body);
-      if (resBodyOfLogin['success'] == true) {
-        Fluttertoast.showToast(msg: "Login Successful");
+//     if (res.statusCode == 200) {
+//       var resBodyOfLogin = jsonDecode(res.body);
+//       if (resBodyOfLogin['success'] == true) {
+//         Fluttertoast.showToast(msg: "Login Successful");
 
-        Future.delayed(Duration(microseconds: 2000), () {
-          Get.to(HomePage());
-        });
-      } else {
-        Fluttertoast.showToast(msg: "Incorrect Credentials");
-      }
-    }
-  } catch (e) {
-    print("Error :: " + e.toString());
-  }
-}
+//         Future.delayed(Duration(microseconds: 2000), () {
+//           Get.to(HomePage());
+//         });
+//       } else {
+//         Fluttertoast.showToast(msg: "Incorrect Credentials");
+//       }
+//     }
+//   } catch (e) {
+//     print("Error :: " + e.toString());
+//   }
+// }
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                             //Login logic here
                             if(_formfield.currentState!.validate()){
                               print("Login Successful");
-                              loginUser();
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
                             }
                             
                           },
