@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:bluemart/components/bottom_nav_bar.dart';
-import 'package:bluemart/pages/log_sign_page.dart';
+import 'package:bluemart/pages/start_page.dart';
+//import 'package:bluemart/pages/log_sign_page.dart';
 import 'package:flutter/material.dart';
 
 import 'cart_page.dart';
@@ -182,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(context,
                       MaterialPageRoute(
-                        builder: (context) => LogSignPage(),
+                        builder: (context) => StartPage(),
                       ),
                     );
                   },
